@@ -53,10 +53,13 @@ class Translator {
         }
 
         // replace words that are diffrent and check Spelling
+        // a word can be in the middle or in the end of the string
+        // 'ta' or 'ta!' or 'ta654' will translated to thank you *
         Object.entries(wordDiffAndSpelling)
             .map(([key, value]) => {
                 if (new RegExp(`${key} `, "gi").test(textLowerCase) ||
-                    new RegExp(`${key}[^A-Za-z]`, "gi").test(textLowerCase)) {
+                    new RegExp(`${key}[^A-Za-z]`, "gi").test(textLowerCase) ||
+                    new RegExp(`${key}$`, "gi").test(textLowerCase)) {
 
                     translated = translated.replace(new RegExp(key, "gi"), `<span class="highlight">${value}</span>`) || text;
                 }
